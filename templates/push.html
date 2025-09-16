@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Push Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% if success %}
+    <h3>✅ Changes pushed successfully to GitHub!</h3>
+{% else %}
+    <h3>❌ Cancelled. No changes pushed.</h3>
+{% endif %}
+<br>
+<a href="{{ url_for('index') }}">🔄 Analyze Another Repository</a>
+</body>
+</html>
+

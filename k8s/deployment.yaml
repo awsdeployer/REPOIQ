@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: repo-analyzer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: repo-analyzer
+  template:
+    metadata:
+      labels:
+        app: repo-analyzer
+    spec:
+      containers:
+        - name: repo-analyzer
+          image: DOCKER_HUB_USERNAME/repo-analyzer:latest # replaced in CI/CD with GITHUB_SHA
+          ports:
+            - containerPort: 5000
+          env:
+            - name: FLASK_ENV
+              value: "production"
+
+            # Inject AWS credentials from Kubernetes Secret
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_DEFAULT_REGION

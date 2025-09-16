@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Repo Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>GitHub Repo Analyzer</h2>
+    <form method="post">
+        <input type="text" name="repo_url" placeholder="Enter GitHub repo URL" size="50" required>
+        <button type="submit">Analyze</button>
+    </form>
+</body>
+</html>

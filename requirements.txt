@@ -1,0 +1,7 @@
+flask
+gitpython
+boto3
+langchain
+langchain-community
+langchain-aws
+faiss-cpu
