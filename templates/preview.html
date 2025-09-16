@@ -9,89 +9,92 @@
         .answer { background: #e6ffe6; padding: 8px; border-radius: 6px; margin-bottom: 10px; }
     </style>
 </head>
+
 <body>
-<h2>Preview of Changes</h2>
+<div class="container" style="max-width: 700px;">
+    <h2>Preview of Changes</h2>
 
-<h3>README.md additions:</h3>
-<pre>{{summary}}</pre>
-<pre>{{techstack}}</pre>
-<pre>{{workflow}}</pre>
+    <h3>README.md additions:</h3>
+    <pre>{{summary}}</pre>
+    <pre>{{techstack}}</pre>
+    <pre>{{workflow}}</pre>
 
-<h3>SuggestedFix.md:</h3>
-<pre>{{fixes}}</pre>
+    <h3>SuggestedFix.md:</h3>
+    <pre>{{fixes}}</pre>
 
-<h3>Design.md:</h3>
-<pre>{{design}}</pre>
+    <h3>Design.md:</h3>
+    <pre>{{design}}</pre>
 
-<h3>UML.md:</h3>
-<pre>{{uml}}</pre>
+    <h3>UML.md:</h3>
+    <pre>{{uml}}</pre>
 
-<hr>
-<h3>Ask Questions about this Repo (Chat Mode)</h3>
+    <hr>
+    <h3>Ask Questions about this Repo (Chat Mode)</h3>
 
-<div id="chat-box" class="chat-box">
-    {% if history %}
-        {% for qa in history %}
-            <div class="question"><b>Q:</b> {{ qa.question }}</div>
-            <div class="answer"><b>A:</b> <div style="white-space: pre-wrap;">{{ qa.answer|safe }}</div></div>
-        {% endfor %}
-    {% else %}
-        <p><i>No questions asked yet. Start the conversation below 👇</i></p>
-    {% endif %}
-</div>
+    <div id="chat-box" class="chat-box">
+        {% if history %}
+            {% for qa in history %}
+                <div class="question"><b>Q:</b> {{ qa.question }}</div>
+                <div class="answer"><b>A:</b> <div style="white-space: pre-wrap;">{{ qa.answer|safe }}</div></div>
+            {% endfor %}
+        {% else %}
+            <p><i>No questions asked yet. Start the conversation below 👇</i></p>
+        {% endif %}
+    </div>
 
-<form id="chat-form">
-    <input type="hidden" name="repo_id" id="repo_id" value="{{repo_id}}">
-    <input type="text" id="user_question" placeholder="Type your question..." size="80" required>
-    <button type="submit">Ask</button>
-</form>
+    <form id="chat-form">
+        <input type="hidden" name="repo_id" id="repo_id" value="{{repo_id}}">
+        <input type="text" id="user_question" placeholder="Type your question..." size="80" required>
+        <button type="submit">Ask</button>
+    </form>
 
-<script>
-document.getElementById("chat-form").addEventListener("submit", async function(e) {
-    e.preventDefault();
+    <script>
+    document.getElementById("chat-form").addEventListener("submit", async function(e) {
+        e.preventDefault();
 
-    const repoId = document.getElementById("repo_id").value;
-    const question = document.getElementById("user_question").value;
+        const repoId = document.getElementById("repo_id").value;
+        const question = document.getElementById("user_question").value;
 
-    // Show question immediately
-    const chatBox = document.getElementById("chat-box");
-    chatBox.innerHTML += `<div class="question"><b>Q:</b> ${question}</div>`;
-    document.getElementById("user_question").value = "";
+        // Show question immediately
+        const chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += `<div class="question"><b>Q:</b> ${question}</div>`;
+        document.getElementById("user_question").value = "";
 
-    // Send to backend
-    const response = await fetch("{{ url_for('ask_question') }}", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repo_id: repoId, user_question: question })
+        // Send to backend
+        const response = await fetch("{{ url_for('ask_question') }}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ repo_id: repoId, user_question: question })
+        });
+
+        const data = await response.json();
+
+        if (data.answer) {
+            chatBox.innerHTML += `<div class="answer"><b>A:</b> <div style=\"white-space: pre-wrap;\">${data.answer}</div></div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        } else {
+            chatBox.innerHTML += `<div class="answer"><b>⚠ Error:</b> Could not fetch answer.</div>`;
+        }
     });
+    </script>
 
-    const data = await response.json();
+    <hr>
+    <h3>Push to GitHub</h3>
+    <form method="post" action="{{ url_for('confirm_push') }}">
+        <input type="hidden" name="repo_id" value="{{repo_id}}">
+        <p><input type="text" name="username" placeholder="GitHub Username" required></p>
+        <p><input type="password" name="pat" placeholder="GitHub Personal Access Token" required></p>
+        <button type="submit">✅ Confirm & Push</button>
+    </form>
 
-    if (data.answer) {
-        chatBox.innerHTML += `<div class="answer"><b>A:</b> <div style="white-space: pre-wrap;">${data.answer}</div></div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    } else {
-        chatBox.innerHTML += `<div class="answer"><b>⚠ Error:</b> Could not fetch answer.</div>`;
-    }
-});
-</script>
+    <form method="post" action="{{ url_for('cancel') }}">
+        <input type="hidden" name="repo_id" value="{{repo_id}}">
+        <button type="submit">❌ Cancel</button>
+    </form>
 
-<hr>
-<h3>Push to GitHub</h3>
-<form method="post" action="{{ url_for('confirm_push') }}">
-    <input type="hidden" name="repo_id" value="{{repo_id}}">
-    <p><input type="text" name="username" placeholder="GitHub Username" required></p>
-    <p><input type="password" name="pat" placeholder="GitHub Personal Access Token" required></p>
-    <button type="submit">✅ Confirm & Push</button>
-</form>
-
-<form method="post" action="{{ url_for('cancel') }}">
-    <input type="hidden" name="repo_id" value="{{repo_id}}">
-    <button type="submit">❌ Cancel</button>
-</form>
-
-<hr>
-<a href="{{ url_for('index') }}">🔄 Analyze Another Repository</a>
+    <hr>
+    <a href="{{ url_for('index') }}">🔄 Analyze Another Repository</a>
+</div>
 </body>
 </html>
 
