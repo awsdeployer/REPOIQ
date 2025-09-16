@@ -152,8 +152,6 @@ docker build -t repoiq .
 
 ---
 
-## Example Diagrams
-
 ### System Design Diagram
 
 ```mermaid
