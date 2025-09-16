@@ -203,25 +203,3 @@ classDiagram
     FlaskApp "1" *-- "N" QASession
 ```
 
----
-
-## FAQ
-
-**Q: What models does RepoIQ use?**
-A: RepoIQ uses AWS Bedrock's Claude 3.5 Sonnet for language understanding and Titan Embeddings for vector search.
-
-**Q: Is my code sent to third parties?**
-A: Code is processed locally and embeddings/analysis are generated using your AWS Bedrock account. No code is sent to third-party servers except AWS Bedrock.
-
-**Q: Can I use private repositories?**
-A: RepoIQ currently supports public repositories. For private repos, you would need to extend authentication and access logic.
-
-**Q: How do I get a GitHub Personal Access Token (PAT)?**
-A: See [GitHub Docs: Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-
----
-
-## License
-
-See [aws/THIRD_PARTY_LICENSES](aws/THIRD_PARTY_LICENSES) for third-party licenses. Project is provided as-is for educational and research purposes.
-
