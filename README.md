@@ -1,4 +1,4 @@
-# AI-Powered Repository Analyzer
+# RepoIQ
 
 This web application provides a comprehensive analysis of GitHub repositories using AI. It clones a given repository, builds a knowledge base, and generates a detailed overview including a summary, technology stack, developer guide, and potential improvements. It also features an interactive Q&A chat to query the codebase.
 
