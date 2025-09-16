@@ -22,27 +22,37 @@ def index():
 
             summary, techstack, workflow, fixes, design, uml, qa = analyze_repo(repo_path, repo_id)
 
-            # Write outputs to files in the cloned repo
+
+
+            # Only create and push three markdown files:
+            # 1. README.md (summary, tech stack, workflow)
+            # 2. SUGGESTEDFIX.md (fixes)
+            # 3. DESIGN.md (design, UML)
             def write_file(filename, content):
                 with open(os.path.join(repo_path, filename), "w", encoding="utf-8") as f:
                     f.write(content.strip() + "\n")
 
-            # Compose README.md with links and all content
             readme_content = (
                 "# Repository Summary\n\n"
-                "[Tech Stack](TECHSTACK.md) | [Workflow](WORKFLOW.md)\n\n"
                 f"{summary}\n\n"
                 "## Tech Stack\n"
                 f"{techstack}\n\n"
                 "## Workflow\n"
                 f"{workflow}\n"
             )
+            fixes_content = (
+                "# Suggested Fixes\n\n"
+                f"{fixes}\n"
+            )
+            design_content = (
+                "# System Design\n\n"
+                f"{design}\n\n"
+                "# UML Diagrams\n\n"
+                f"{uml}\n"
+            )
             write_file("README.md", readme_content)
-            write_file("TECHSTACK.md", techstack)
-            write_file("WORKFLOW.md", workflow)
-            write_file("SuggestedFix.md", fixes)
-            write_file("Design.md", design)
-            write_file("UML.md", uml)
+            write_file("SUGGESTEDFIX.md", fixes_content)
+            write_file("DESIGN.md", design_content)
 
             QA_SESSIONS[repo_id] = {
                 "qa": qa,
