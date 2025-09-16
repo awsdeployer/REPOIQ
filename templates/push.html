@@ -8,7 +8,10 @@
 {% if success %}
     <h3>✅ Changes pushed successfully to GitHub!</h3>
 {% else %}
-    <h3>❌ Cancelled. No changes pushed.</h3>
+    <h3>❌ Push failed.</h3>
+    <div style="color:#ff5555; background:#222; padding:12px; border-radius:8px; margin:10px 0;">
+        <b>Error:</b> {{ error or 'Unknown error during push. Check server logs.' }}
+    </div>
 {% endif %}
 <br>
 <a href="{{ url_for('index') }}">🔄 Analyze Another Repository</a>
