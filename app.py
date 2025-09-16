@@ -1,3 +1,5 @@
+
+import os
 from flask import Flask, request, render_template, url_for, jsonify
 import logging, re, shutil
 
@@ -19,6 +21,28 @@ def index():
             repo_id = repo_path.split("/")[-1]
 
             summary, techstack, workflow, fixes, design, uml, qa = analyze_repo(repo_path, repo_id)
+
+            # Write outputs to files in the cloned repo
+            def write_file(filename, content):
+                with open(os.path.join(repo_path, filename), "w", encoding="utf-8") as f:
+                    f.write(content.strip() + "\n")
+
+            # Compose README.md with links and all content
+            readme_content = (
+                "# Repository Summary\n\n"
+                "[Tech Stack](TECHSTACK.md) | [Workflow](WORKFLOW.md)\n\n"
+                f"{summary}\n\n"
+                "## Tech Stack\n"
+                f"{techstack}\n\n"
+                "## Workflow\n"
+                f"{workflow}\n"
+            )
+            write_file("README.md", readme_content)
+            write_file("TECHSTACK.md", techstack)
+            write_file("WORKFLOW.md", workflow)
+            write_file("SuggestedFix.md", fixes)
+            write_file("Design.md", design)
+            write_file("UML.md", uml)
 
             QA_SESSIONS[repo_id] = {
                 "qa": qa,
@@ -72,10 +96,13 @@ def confirm_push():
     username = request.form.get("username")
     pat = request.form.get("pat")
 
-    git_push(repo_path, repo_url, username, pat)
+    error = git_push(repo_path, repo_url, username, pat)
     shutil.rmtree(repo_path)
     del QA_SESSIONS[repo_id]
 
+    if error:
+        app.logger.error(f"Push error: {error}")
+        return render_template("push.html", success=False, error=error or 'Unknown error during push. Check server logs.')
     return render_template("push.html", success=True)
 
 @app.route("/cancel", methods=["POST"])
