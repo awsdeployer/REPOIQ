@@ -1,227 +1,47 @@
-/* General Layout */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-}
-
-/* Headings */
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #222;
-}
-
-h2 {
-    margin-top: 25px;
-    color: #007bff;
-}
-
-h3 {
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-/* Summary & Tech Sections */
-.summary-section p,
-.tech-section p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #555;
-}
-
-.tech-section ul {
-    margin-left: 20px;
-}
-
-.tech-section li {
-    margin-bottom: 5px;
-}
-
-/* Issues Section */
-.report-list {
-    list-style: none;
-    padding: 0;
-}
-
-.report-item {
-    border: 1px solid #ddd;
-    background-color: #f9fbfd;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    transition: all 0.2s ease-in-out;
-}
-
-.report-item:hover {
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-}
-
-pre {
-    background-color: #272822;
-    color: #f8f8f2;
-    padding: 15px;
-    border-radius: 6px;
-    overflow-x: auto;
-    font-size: 13px;
-}
-
-/* Checkbox Label */
-.checkbox-label {
+    font-family: Arial, sans-serif;
+    margin: 0; /* reset margin */
+    height: 100vh; /* full viewport height */
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    background: #f5f5f5;
+    color: #333;
+    flex-direction: column; /* so heading stays above form */
 }
 
-.fix-type {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 5px;
-    color: #fff;
-}
-
-.fix-type.applied {
-    background-color: #28a745;
-}
-
-.fix-type.appended {
-    background-color: #ffc107;
-}
-
-/* GitHub Credentials */
-.github-credentials {
-    margin-top: 20px;
-}
-
-.github-credentials label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.github-credentials input[type="text"],
-.github-credentials input[type="password"] {
-    padding: 10px;
-    width: 100%;
-    max-width: 450px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-}
-
-/* Buttons */
-button[type="submit"] {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 10px;
-}
-
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-/* No Issues Message */
-.no-issues {
-    font-size: 16px;
-    font-weight: bold;
-    color: #28a745;
-    text-align: center;
-    margin-top: 15px;
-}
-
-/* Back Link */
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 25px;
-    color: #007bff;
-    font-weight: 500;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    pre {
-        font-size: 12px;
-    }
-
-    button[type="submit"] {
-        width: 100%;
-    }
-}
-/* Intro text */
-.intro-text {
-    font-size: 15px;
-    color: #555;
+h2, h3 {
+    color: #2c3e50;
     margin-bottom: 20px;
-    line-height: 1.6;
     text-align: center;
 }
 
-/* Form styling */
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
 }
 
-input[type="text"] {
-    padding: 12px;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
+input, button {
+    padding: 8px;
+    margin: 5px;
 }
 
-.error {
-    color: #d9534f;
-    font-weight: 500;
-    margin-top: 15px;
-    text-align: center;
-}
-
-/* Submit button inherits same style as final_report.html */
-button[type="submit"] {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #007bff;
-    color: #fff;
+button {
+    background: #2ecc71;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    color: white;
     cursor: pointer;
-    transition: background 0.2s;
+    border-radius: 4px;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+button:hover {
+    background: #27ae60;
+}
+
+pre {
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
 }
