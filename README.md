@@ -28,6 +28,9 @@ Here are some working screenshots of the project:
 ### Screenshot 8
 ![Screenshot 8](working-ss/8.png)
 
+### Screenshot 9
+![Screenshot 9](working-ss/9.png)
+
 # RepoIQ
 
 RepoIQ is an AI-powered web application that provides deep, automated analysis of any public GitHub repository. It clones a repository, builds a knowledge base using advanced language models, and generates a comprehensive overview including a summary, technology stack, developer guide, improvement suggestions, and interactive Q&A. The app can also generate system design and UML diagrams, and optionally push the generated analysis back to the original repository.
