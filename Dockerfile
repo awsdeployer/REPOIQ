@@ -1,18 +1,21 @@
-# Use a lightweight Python image
-FROM python:3.11-slim
+# Use official Python image
+FROM python:3.12-slim
 
-# Set working directory
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Set work directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    gcc \
+# Install system and Python dependencies in one layer
+COPY requirements.txt ./
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git gcc \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get purge -y --auto-remove gcc \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
 COPY . .
@@ -20,5 +23,5 @@ COPY . .
 # Expose port
 EXPOSE 5000
 
-# Run the app
-CMD ["python", "app.py"]
+# Start with Gunicorn (production-ready)
+ENTRYPOINT ["gunicorn", "app:app", "--bind", "0.0.0.0:5000"]
