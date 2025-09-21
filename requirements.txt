@@ -6,3 +6,4 @@ langchain-community
 langchain-aws
 faiss-cpu
 langgraph
+gunicorn
