@@ -55,5 +55,5 @@ jobs:
       - name: Show running port and public IP
         run: |
           PUBLIC_IP=$(curl -s ifconfig.me)
-          echo "✅ Application is running on http://$PUBLIC_IP:30000"
+          echo "Application is running on http://$PUBLIC_IP:30000"
 
