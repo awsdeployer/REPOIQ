@@ -203,36 +203,6 @@ graph TD
     B --> J{Commits & Pushes to GitHub};
 ```
 
-### UML Class Diagram
-
-```mermaid
-classDiagram
-    class FlaskApp {
-        +index()
-        +ask_question()
-        +confirm_push()
-        +cancel()
-    }
-    class AnalysisService {
-        +clone_repo(repo_url)
-        +extract_codebase_text(repo_path)
-        +build_rag(docs, repo_id)
-        +analyze_repo(repo_path, repo_id)
-    }
-    class GitService {
-        +git_push(repo_path, repo_url, username, pat)
-    }
-    class QASession {
-        -qa_chain
-        -repo_path
-        -history
-        +run_query(question)
-    }
-    FlaskApp o-- "1" AnalysisService
-    FlaskApp o-- "1" GitService
-    FlaskApp "1" *-- "N" QASession
-```
-
 
 ### UML Class Diagram
 
