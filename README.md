@@ -233,3 +233,70 @@ classDiagram
     FlaskApp "1" *-- "N" QASession
 ```
 
+
+classDiagram
+    class FlaskApp {
+        +index()
+        +ask_question()
+        +confirm_push()
+        +cancel()
+    }
+    class RepoManager {
+        +clone_repo(repo_url)
+        +git_push(repo_path, repo_url, username, pat)
+    }
+    class Analyzer {
+        +extract_codebase_text(repo_path)
+        +analyze_repo(repo_path, repo_id)
+    }
+    class RAGPipeline {
+        +build_rag(docs, repo_id)
+    }
+    class GraphRAGPipeline {
+        +build_graph_rag(docs, repo_id)
+    }
+    class QASessionStore {
+        QA_SESSIONS : dict
+    }
+
+    FlaskApp o-- "1" RepoManager
+    FlaskApp o-- "1" Analyzer
+    Analyzer o-- "1" RAGPipeline
+    Analyzer o-- "1" GraphRAGPipeline
+    FlaskApp "1" *-- "N" QASessionStore
+
+    class QASession {
+        qa
+        repo_path
+        repo_url
+        summary
+        techstack
+        workflow
+        fixes
+        design
+        uml
+        history
+    }
+    QASessionStore "1" *-- "N" QASession
+
+    class Document
+    Analyzer ..> Document : uses
+
+    class PromptTemplate
+    class RetrievalQA
+    class ChatBedrock
+    class BedrockEmbeddings
+    class FAISS
+    class StateGraph
+
+    RAGPipeline ..> PromptTemplate
+    RAGPipeline ..> RetrievalQA
+    RAGPipeline ..> ChatBedrock
+    RAGPipeline ..> BedrockEmbeddings
+    RAGPipeline ..> FAISS
+
+    GraphRAGPipeline ..> StateGraph
+    GraphRAGPipeline ..> PromptTemplate
+    GraphRAGPipeline ..> ChatBedrock
+    GraphRAGPipeline ..> BedrockEmbeddings
+    GraphRAGPipeline ..> FAISS
