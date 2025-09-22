@@ -24,5 +24,6 @@ COPY . .
 EXPOSE 5000
 
 # Start with Gunicorn (production-ready)
-ENTRYPOINT ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "--workers", "4", "--timeout", "120", "app:app", "--bind", "0.0.0.0:5000"]
+ENTRYPOINT ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "--workers", "2", "--timeout", "180", "--bind", "0.0.0.0:5000", "app:app"]
+
 
