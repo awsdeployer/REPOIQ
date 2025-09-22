@@ -234,6 +234,10 @@ classDiagram
 ```
 
 
+### UML Class Diagram
+
+
+```mermaid
 classDiagram
     class FlaskApp {
         +index()
@@ -300,3 +304,4 @@ classDiagram
     GraphRAGPipeline ..> ChatBedrock
     GraphRAGPipeline ..> BedrockEmbeddings
     GraphRAGPipeline ..> FAISS
+```
