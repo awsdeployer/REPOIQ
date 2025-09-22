@@ -7,3 +7,4 @@ langchain-aws
 faiss-cpu
 langgraph
 gunicorn
+uvicorn[standard]
