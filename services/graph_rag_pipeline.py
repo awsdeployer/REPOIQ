@@ -60,7 +60,7 @@ def build_graph_rag(docs, repo_id):
         logging.info(f"LangGraph: qa_node completed")
         return {**state, "qa": qa}
 
-    # Build the graph with state_schema
+
     graph = StateGraph(state_schema)
     graph.add_node("split", RunnableLambda(split_node))
     graph.add_node("embed_store", RunnableLambda(embed_store_node))
