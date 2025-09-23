@@ -56,8 +56,7 @@ def build_graph_rag(docs, repo_id):
     def qa_node(state):
         logging.info(f"LangGraph: qa_node running for repo_id={repo_id}")
         retriever = state["retriever"]
-        # question is not used in this pipeline, but could be added
-        qa = None  # Not used in this pipeline, but placeholder
+        qa = None  
         logging.info(f"LangGraph: qa_node completed")
         return {**state, "qa": qa}
 
